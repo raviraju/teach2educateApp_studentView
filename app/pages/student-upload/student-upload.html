@@ -1,0 +1,276 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      {{ chapterSelected }}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+  <ion-content padding>
+    <div padding>
+      <ion-segment [(ngModel)]="assignments">
+        <ion-segment-button value="upload">
+          Upload
+        </ion-segment-button>
+        <ion-segment-button value="resubmit">
+          Resubmit
+        </ion-segment-button>
+        <ion-segment-button value="reviewrate">
+          Review
+        </ion-segment-button>
+        <ion-segment-button value="completed">
+          Completed
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+
+ <div [ngSwitch]="assignments">
+   <ion-item *ngSwitchCase="'upload'">
+     <ion-card>
+        <ion-item>
+          <h2>What is a Cell?</h2>
+        </ion-item>
+        <ion-card-content>
+          <a ion-item (click)="openModal({charNum: 0})">
+            <button primary outline small>
+              <ion-icon name="document"></ion-icon>
+              <div>View Description</div>
+            </button>
+          </a>
+        </ion-card-content>
+        <ion-row>
+          <ion-col>
+             <button primary clear small>
+               <ion-icon name="videocam"></ion-icon>
+               <div>Upload</div>
+             </button>
+           </ion-col>
+           <ion-col>
+             <button primary danger clear small>
+               <ion-icon name="calendar"></ion-icon>
+               <div>Due: 10th July</div>
+             </button>
+           </ion-col>
+       </ion-row>
+     </ion-card>
+     <ion-card>
+        <ion-item>
+          <h2>Explain Runtime Poylmorphism?</h2>
+        </ion-item>
+        <ion-card-content>
+          <a ion-item (click)="openModal({charNum: 0})">
+            <button primary outline small>
+              <ion-icon name="document"></ion-icon>
+              <div>View Description</div>
+            </button>
+          </a>
+        </ion-card-content>
+        <ion-row>
+          <ion-col>
+             <button primary clear small>
+               <ion-icon name="videocam"></ion-icon>
+               <div>Upload</div>
+             </button>
+           </ion-col>
+           <ion-col>
+             <button danger clear small>
+               <ion-icon name="calendar"></ion-icon>
+               <div>Due: 10th July</div>
+             </button>
+           </ion-col>
+       </ion-row>
+     </ion-card>
+   </ion-item>
+   <ion-item *ngSwitchCase="'resubmit'">
+     <ion-card>
+        <ion-item>
+          <h2>What is a Cell?</h2>
+        </ion-item>
+        <ion-card-content>
+          <a ion-item (click)="openModal({charNum: 0})">
+            <button primary outline small>
+              <ion-icon name="document"></ion-icon>
+              <div>View Description</div>
+            </button>
+          </a>
+        </ion-card-content>
+        <ion-row>
+          <ion-col>
+             <button primary clear small>
+               <ion-icon name="videocam"></ion-icon>
+               <div>Resubmit</div>
+             </button>
+           </ion-col>
+           <ion-col>
+             <button danger clear small>
+               <ion-icon name="calendar"></ion-icon>
+               <div>Due: 10th July</div>
+             </button>
+           </ion-col>
+       </ion-row>
+     </ion-card>
+     <ion-card>
+        <ion-item>
+          <h2>Explain Runtime Poylmorphism?</h2>
+        </ion-item>
+        <ion-card-content>
+          <a ion-item (click)="openModal({charNum: 0})">
+            <button primary outline small>
+              <ion-icon name="document"></ion-icon>
+              <div>View Description</div>
+            </button>
+          </a>
+        </ion-card-content>
+        <ion-row>
+          <ion-col>
+             <button primary clear small>
+               <ion-icon name="videocam"></ion-icon>
+               <div>Resubmit</div>
+             </button>
+           </ion-col>
+           <ion-col>
+             <button danger clear small>
+               <ion-icon name="calendar"></ion-icon>
+               <div>Due: 10th July</div>
+             </button>
+           </ion-col>
+       </ion-row>
+     </ion-card>
+   </ion-item>
+
+   <ion-item *ngSwitchCase="'reviewrate'">
+     <ion-card>
+        <ion-item>
+          <h2>What is a Cell?</h2>
+        </ion-item>
+        <ion-card-content>
+          <a ion-item (click)="openModal({charNum: 0})">
+            <button primary outline small>
+              <ion-icon name="person"></ion-icon>
+              <div>Student 1</div>
+            </button>
+          </a>
+          <a ion-item (click)="openModal({charNum: 0})">
+            <button primary outline small>
+              <ion-icon name="person"></ion-icon>
+              <div>Student 2</div>
+            </button>
+          </a>
+          <a ion-item (click)="openModal({charNum: 0})">
+            <button primary outline small>
+              <ion-icon name="person"></ion-icon>
+              <div>Student 3</div>
+            </button>
+          </a>
+        </ion-card-content>
+        <ion-row>
+           <ion-col>
+             <button danger clear small>
+               <ion-icon name="calendar"></ion-icon>
+               <div>Due: 20th July</div>
+             </button>
+           </ion-col>
+       </ion-row>
+     </ion-card>
+     <ion-card>
+        <ion-item>
+          <h2>Explain Runtime Poylmorphism?</h2>
+        </ion-item>
+        <ion-card-content>
+          <a ion-item (click)="openModal({charNum: 0})">
+            <button primary outline small>
+              <ion-icon name="person"></ion-icon>
+              <div>Student 1</div>
+            </button>
+          </a>
+          <a ion-item (click)="openModal({charNum: 0})">
+            <button primary outline small>
+              <ion-icon name="person"></ion-icon>
+              <div>Student 2</div>
+            </button>
+          </a>
+          <a ion-item (click)="openModal({charNum: 0})">
+            <button primary outline small>
+              <ion-icon name="person"></ion-icon>
+              <div>Student 3</div>
+            </button>
+          </a>
+        </ion-card-content>
+        <ion-row>
+           <ion-col>
+             <button danger clear small>
+               <ion-icon name="calendar"></ion-icon>
+               <div>Due: 20th July</div>
+             </button>
+           </ion-col>
+       </ion-row>
+     </ion-card>
+   </ion-item>
+
+   <ion-item *ngSwitchCase="'completed'">
+     <ion-card>
+        <ion-item>
+          <h2>What is a Cell?</h2>
+        </ion-item>
+        <ion-card-content>
+          <a ion-item (click)="openModal({charNum: 0})">
+            <button primary outline small>
+              <ion-icon name="document"></ion-icon>
+              <div>My rating</div>
+            </button>
+          </a>
+          <button secondary clear small>
+            <ion-icon name="checkbox"></ion-icon>
+            Submitted On: 10th July
+          </button>
+        </ion-card-content>
+        <ion-row>
+          <ion-col>
+             <button primary clear small>
+               <ion-icon name="videocam"></ion-icon>
+               <div>View</div>
+             </button>
+           </ion-col>
+           <ion-col>
+             <button primary clear small>
+                <ion-icon name="star-half"></ion-icon>
+                <div>8/10</div>
+            </button>
+            </ion-col>
+       </ion-row>
+     </ion-card>
+
+     <ion-card>
+        <ion-item>
+          <h2>Explain Runtime Polymorphism?</h2>
+        </ion-item>
+        <ion-card-content>
+          <a ion-item (click)="openModal({charNum: 0})">
+            <button primary outline small>
+              <ion-icon name="document"></ion-icon>
+              <div>My rating</div>
+            </button>
+          </a>
+          <button secondary clear small>
+            <ion-icon name="checkbox"></ion-icon>
+            Submitted On: 10th July
+          </button>
+        </ion-card-content>
+        <ion-row>
+          <ion-col>
+             <button primary clear small>
+               <ion-icon name="videocam"></ion-icon>
+               <div>View</div>
+             </button>
+           </ion-col>
+           <ion-col>
+             <button primary clear small>
+                <ion-icon name="star-half"></ion-icon>
+                <div>8/10</div>
+            </button>
+            </ion-col>
+       </ion-row>
+     </ion-card>
+   </ion-item>
+</div>
+</ion-content>
