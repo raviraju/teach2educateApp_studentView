@@ -29,6 +29,9 @@
         <ion-item *ngSwitchCase="'courses'">
              <ion-list>
                  <button ion-item *ngFor="let item of items" (click)="openChapterDetailsPage(item)">
+                   <ion-avatar item-left>
+                     <img id="avatar" src={{icons_names_map[item]}}>
+                   </ion-avatar>
                     {{ item }}
                  </button>
              </ion-list>

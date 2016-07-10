@@ -15,12 +15,5 @@
 </ion-navbar>
 
 <ion-content padding class="student-assignment-description">
-    <ion-list>
-        <ion-item *ngFor="let item of character['items']">
-          {{item.title}}
-          <ion-note item-right>
-            {{item.note}}
-          </ion-note>
-        </ion-item>
-    </ion-list>
+    {{assignmentSelected}}
 </ion-content>

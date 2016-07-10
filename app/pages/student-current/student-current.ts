@@ -22,19 +22,28 @@ export class StudentCurrentPage {
   chapters = [];
   classSelected: string;
   chapter_assignments = {};
+  student_grade:string;
+  icons_chap_map = {};
+  res:string;
+  link:string;
   constructor(public nav: NavController, navParams: NavParams, private dataService: Data, private lib: Lib){
       this.classSelected = navParams.data.className;
+      this.student_grade = navParams.data.studentGrade;
       console.log(this.classSelected);
+      console.log(this.student_grade);
   }
 
   ionViewWillEnter(){
     this.chapters = [];
     this.chapter_assignments = {};
-    this.dataService.getChapters(this.classSelected).then((classInfo) => {
+    this.dataService.getChapters(this.student_grade+"_"+this.classSelected).then((classInfo) => {
       if(classInfo){
         for(let chapter in classInfo["chapters"]){
           this.chapters.push(chapter);
           this.chapter_assignments[chapter] = classInfo["chapters"][chapter]["assignments"];
+          this.res = chapter.charAt(0).toLowerCase();
+          this.link = "http://icons.iconarchive.com/icons/iconicon/alpha-magnets/128/Letter-"+this.res+"-icon.png";
+          this.icons_chap_map[chapter] = this.link;
         }
         console.log(this.chapter_assignments);
     }
@@ -46,7 +55,6 @@ export class StudentCurrentPage {
   }
 
   openAssignmentDetailsPage(chapterTitle){
-     this.nav.push(StudentUploadPage, {chapter: chapterTitle})
-     console.log(chapterTitle);
+     this.nav.push(StudentUploadPage, {chapter: chapterTitle,class:this.classSelected,studentGrade:this.student_grade});
   }
 }

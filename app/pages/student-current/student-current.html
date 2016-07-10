@@ -13,6 +13,9 @@
 <ion-content padding>
   <ion-list>
       <button ion-item *ngFor="let chapter of chapters"  (click)="openAssignmentDetailsPage(chapter)">
+        <ion-avatar item-left>
+          <img id="avatar" src={{icons_chap_map[chapter]}}>
+        </ion-avatar>
          {{ chapter }}
       </button>
   </ion-list>
