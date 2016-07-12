@@ -43,8 +43,9 @@ export class StudentHomePage {
         for(var sub of this.db_subjects){
             this.items.push(sub.split("_")[1]);
             this.student_grade = sub.split("_")[0];
-            this.res = sub.split("_")[1].charAt(0).toLowerCase();
-            this.link = "http://icons.iconarchive.com/icons/iconicon/alpha-magnets/128/Letter-"+this.res+"-icon.png";
+            this.res = sub.split("_")[1].charAt(0);
+            this.link = "http://icons.iconarchive.com/icons/iconarchive/red-orb-alphabet/32/Letter-"+this.res+"-icon.png";
+            // this.link = "http://icons.iconarchive.com/icons/iconicon/alpha-magnets/128/Letter-"+this.res+"-icon.png";
             this.icons_names_map[sub.split("_")[1]] = this.link;
         }
       }
@@ -61,6 +62,6 @@ export class StudentHomePage {
   }
 
   openChapterDetailsPage(className){
-      this.nav.push(StudentCurrentPage, { className: className, studentGrade: this.student_grade });
+      this.nav.push(StudentCurrentPage, { className: className, studentGrade: this.student_grade, email:this.email });
   }
 }

@@ -1,15 +1,63 @@
-import {Component} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {Component, Input} from '@angular/core';
+import {Data} from '../../providers/data/data';
+import {Lib} from '../../providers/lib/lib';
+import {Modal, Platform, NavController, NavParams, ViewController,IONIC_DIRECTIVES,Alert} from 'ionic-angular';
+import {StudentDetailReviewPage} from '../students-detail-review/students-detail-review';
 
-/*
-  Generated class for the StudentReviewPage page.
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
-  templateUrl: 'build/pages/student-review/student-review.html',
+    templateUrl: 'build/pages/student-review/student-review.html',
+    selector: 'student-review',
+    directives: [IONIC_DIRECTIVES]
 })
 export class StudentReviewPage {
-  constructor(public nav: NavController) {}
+    @Input() assignment: string;
+    @Input() response: {};
+    @Input() email: string;
+    @Input() studentGrade:string;
+    @Input() classSelected:string;
+    @Input() chapterSelected:string;
+
+    assignment_dict = {};
+    chapter_assignments = [];
+    assignment_url:string;
+    cumulative_rating;
+    students_to_review = [];
+    student:string;
+
+    constructor(public nav: NavController,public platform: Platform,public params: NavParams,public viewCtrl: ViewController,private dataService: Data) {
+    }
+
+    ngOnInit(){
+      this.dataService.getAssignments(this.studentGrade+"_"+this.classSelected, this.chapterSelected).then((assignmentsInfo) => {
+        if (assignmentsInfo) {
+          this.chapter_assignments = assignmentsInfo["assignments"];
+              this.assignment_dict[this.assignment] = {};
+              this.assignment_dict[this.assignment]["responses"] = {};
+              this.assignment_dict[this.assignment]["peer_review_map"] = {};
+              this.students_to_review = [];
+
+            this.dataService.getAssignmentInfo(this.assignment).then((assignmentDetail_info) => {
+                if (assignmentDetail_info) {
+                    this.assignment_dict[this.assignment] = {};
+                    this.assignment_dict[this.assignment] ["peer_review_map"] = assignmentDetail_info["peer_review_map"];
+                    this.assignment_dict[this.assignment] ["responses"] = assignmentDetail_info["responses"];
+                    console.log(this.assignment_dict);
+                    this.assignment_url = this.assignment_dict[this.assignment] ["responses"][this.email]["attachmentUrl"];
+                    this.cumulative_rating = this.assignment_dict[this.assignment] ["responses"][this.email]["cumulative_rating"];
+                    this.students_to_review = this.assignment_dict[this.assignment]["peer_review_mapp"][this.email]["to_review"];
+                    console.log(this.assignment_dict[this.assignment]["peer_review_mapp"][this.email]["to_review"]);
+                    console.log(this.assignment_dict[this.assignment] ["responses"][this.email]["cumulative_rating"]);
+                }
+            }).catch(function(exception){
+              console.log(exception);
+            });
+        }
+      });
+    }
+
+    openModal(studentNum) {
+        let modal = Modal.create(StudentDetailReviewPage, studentNum);
+        this.nav.present(modal);
+    }
 }

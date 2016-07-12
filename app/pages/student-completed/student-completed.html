@@ -1,22 +1,21 @@
 <ion-card>
-  <h2>What is a cell?</h2>
-  <!-- <iframe [src]="response.attachmentUrl" frameborder="0" style="overflow:hidden;height:100%;width:100%" height="100%" width="100%"></iframe> -->
-  <ion-row>
-    <ion-col>
-      <button secondary small>
-        <ion-icon name="done-all"></ion-icon>
-        <div>Submitted On: 10th July</div>
-      </button>
-    </ion-col>
-    <ion-col>
-      <button primary clear small>
-         <ion-icon name="star-half" [ngStyle]="{'color': '#ffdb4d'}"></ion-icon>
-         <div>8/10</div>
-      </button>
-    </ion-col>
-  </ion-row>
-  <button light small>
-     <ion-icon name="star-half" [ngStyle]="{'color': '#ffdb4d'}"></ion-icon>
-     <div>View Detailed Rating</div>
-  </button>
+    <ion-card-header>{{assignment}}</ion-card-header>
+    <ion-card-content>
+       <!-- <iframe [src]="assignment_url" frameborder="0" style="overflow:hidden;height:100%;width:100%" height="100%"></iframe> -->
+       <ion-row>
+           <ion-col>
+             <button primary clear small>
+               <ion-icon name="star-half" [ngStyle]="{'color': '#ffdb4d'}"></ion-icon>
+               <!-- <div>{{cumulative_rating}}</div> -->
+               <div>8/10</div>
+             </button>
+           </ion-col>
+           <ion-col>
+             <button light small (click)="doAlert()">
+                 <ion-icon name="star-half" [ngStyle]="{'color': '#ffdb4d'}"></ion-icon>
+                 <div>View Detailed Rating</div>
+              </button>
+           </ion-col>
+       </ion-row>
+    </ion-card-content>
 </ion-card>
