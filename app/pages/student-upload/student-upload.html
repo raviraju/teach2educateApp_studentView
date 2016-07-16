@@ -96,10 +96,7 @@
    <ion-item *ngSwitchCase="'completed'">
      <student-completed *ngFor="let assignment of chapter_assignments"
                          [assignment]="assignment"
-                         [studentGrade]="student_grade"
-                         [classSelected] = "classSelected"
-                         [email]="email"
-                         [chapterSelected]="chapterSelected">
+                         [email]="email">
      </student-completed>
    </ion-item>
 </div>
