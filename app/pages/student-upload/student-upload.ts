@@ -21,11 +21,14 @@ export class StudentUploadPage {
     student_grade: string;
     email: string;
     uploaded_assignments = [];
-    yetToUpload_assignments = [];
     canResubmit_assignments = [];
     completed_assignments = [];
+
+    yetToUpload_assignments = [];
+    soft_deadline_expired_assignments = [];
+    safe_submit_assignments = [];
     constructor(public nav: NavController, navParams: NavParams,
-      private dataService: Data, private lib: Lib, private sanitizer: DomSanitizationService) {
+        private dataService: Data, private lib: Lib, private sanitizer: DomSanitizationService) {
         this.chapterSelected = navParams.data.chapter;
         this.student_grade = navParams.data.studentGrade;
         this.classSelected = navParams.data.class;
@@ -34,6 +37,7 @@ export class StudentUploadPage {
     }
 
     ionViewWillEnter() {
+        var dateOptions = { weekday: 'short', year: '2-digit', month: '2-digit', day: '2-digit' };
         this.dataService.getAssignments(this.student_grade + "_" + this.classSelected, this.chapterSelected).then((assignmentsInfo) => {
             if (assignmentsInfo) {
                 this.chapter_assignments = assignmentsInfo["assignments"];
@@ -59,7 +63,9 @@ export class StudentUploadPage {
                             this.assignment_dict[assign]["max_response_duration_min"] = assignmentDetail_info["max_response_duration_min"];
                             this.assignment_dict[assign]["assigned_on"] = assignmentDetail_info["assigned_on"];
                             this.assignment_dict[assign]["soft_deadline_due"] = assignmentDetail_info["soft_deadline_due"];
+                            this.assignment_dict[assign]["formatted_soft_deadline_due"] = new Date(this.assignment_dict[assign]["soft_deadline_due"]).toLocaleDateString('en-US', dateOptions);
                             this.assignment_dict[assign]["hard_deadline_due"] = assignmentDetail_info["hard_deadline_due"];
+                            this.assignment_dict[assign]["formatted_hard_deadline_due"] = new Date(this.assignment_dict[assign]["hard_deadline_due"]).toLocaleDateString('en-US', dateOptions);
                             this.assignment_dict[assign]["teacher_reviewed"] = assignmentDetail_info["teacher_reviewed"];
                             this.assignment_dict[assign]["teacher_yet_to_review"] = assignmentDetail_info["teacher_yet_to_review"];
                             this.assignment_dict[assign]["no_of_assignments_reviewed"] = assignmentDetail_info["teacher_reviewed"].length;
@@ -76,26 +82,30 @@ export class StudentUploadPage {
                                 console.log("uploaded_assignments : " + this.uploaded_assignments);
                                 let currentDate = new Date();
                                 let hardDeadlineDate = new Date(this.assignment_dict[assign]["hard_deadline_due"]);
-                                if(currentDate <= hardDeadlineDate){//can resubmit
-                                  this.canResubmit_assignments.push(assign);
-                                  console.log("canResubmit_assignments : " + this.canResubmit_assignments);
-                                }else{//cannot resubmit
-                                  this.completed_assignments.push(assign);
-                                  console.log("completed_assignments : " + this.completed_assignments);
+                                if (currentDate <= hardDeadlineDate) {//can resubmit
+                                    this.canResubmit_assignments.push(assign);
+                                    console.log("canResubmit_assignments : " + this.canResubmit_assignments);
+                                } else {//cannot resubmit
+                                    this.completed_assignments.push(assign);
+                                    console.log("completed_assignments : " + this.completed_assignments);
                                 }
                             } else {//not_found: student_yet_to_upload
                                 this.yetToUpload_assignments.push(assign);
+                                console.log("yetToUpload_assignments : " + this.yetToUpload_assignments);
                                 let currentDate = new Date();
                                 let softDeadlineDate = new Date(this.assignment_dict[assign]["soft_deadline_due"]);
-                                console.log("yetToUpload_assignments : " + this.yetToUpload_assignments);
+                                if (currentDate <= softDeadlineDate) {//safe_submit
+                                    this.safe_submit_assignments.push(assign);
+                                } else {//soft_deadline_expired
+                                    this.soft_deadline_expired_assignments.push(assign);
+                                }
+
                             }
                         }
                     }).catch(function(exception) {
                         console.log(exception);
                     });
                 }
-                //console.log(this.uploaded_assignments);
-                //console.log(this.yetToUpload_assignments);
             }
         });
     }
